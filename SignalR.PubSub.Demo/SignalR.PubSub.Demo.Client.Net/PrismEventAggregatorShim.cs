@@ -3,6 +3,7 @@
     using Microsoft.Practices.Prism.PubSubEvents;
 
     using SignalR.PubSub.Client.Net;
+    using SignalR.PubSub.Common;
 
     /// <summary>
     /// Example shim that forwards events arriving from the server on to the Prism Event Aggregator.
@@ -27,7 +28,7 @@
         /// </summary>
         /// <typeparam name="TEvent">The type of the event.</typeparam>
         /// <param name="event">The event.</param>
-        public void Publish<TEvent>(TEvent @event)
+        public void Publish<TEvent>(TEvent @event) where TEvent : ISignalREvent
         {
             // Here we publish the event using the Prism event aggregator. Code elsewhere
             // in the client application will subscribe to events of type ISignalREvent

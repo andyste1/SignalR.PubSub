@@ -10,6 +10,8 @@ You use some kind of event aggregator framework (or even "conventional" events) 
 
 Needing to handle more than a couple of events can quickly result in a lot of code repetition.
 
+By the way, if you don't currently use an event aggregator library then you might want to read the later section titled *But I don't use an Event Aggregator!*
+
 ### The Solution
 This is where the SignalR.PubSub library comes in. It hooks in to your existing event aggregator framework and forwards server-side events to any connected clients. It's still performing the above steps under the covers, but it's all taken care of for you - publish events on the server-side and subscribe to them on the client-side, using your favourite event aggregator (or conventional events).
 
@@ -75,7 +77,7 @@ internal class PrismEventAggregatorShim : IClientEventShim
         _prismEventAggregator = prismEventAggregator;
     }
 
-    public void Publish<TEvent>(TEvent @event)
+    public void Publish<TEvent>(TEvent @event) where TEvent : ISignalREvent
     {
         _prismEventAggregator.GetEvent<PubSubEvent<TEvent>>().Publish(@event);
     }
@@ -116,7 +118,7 @@ public class HomeViewModel
 
 You can find a demo solution in this GitHub repo that contains a self-hosted SignalR server and a .Net client.
 
-### A Word on Javascript Clients
+### Javascript Clients
 While I haven't added any official support for JS clients, it *is* still possible to use this library. The SignalR.PubSub library utilises its own "hidden" Hub through which server-side events are broadcast to clients. The object that is passed across the connection is a "wrapper" that contains the event object's JSON, and the event object's Type. You can utilise this wrapper object in Javascript, something like this:-
 
 ```JS
@@ -132,3 +134,58 @@ hubProxy.on('PubSubBusEvent', function (message) {
 ```
 
 Make sure you use the correct Hub name ("_PubSubHub") and Hub event name ("PubSubBusEvent") as shown above.
+
+# But I don't use an Event Aggregator!
+Why not?! Event aggregators are great for decoupling publishers (classes that raise events) from subscribers (classes that handle events). A publisher doesn't care who (if anyone) is subscribing to its events; similarly a subscriber doesn't know or care who published that event. We all know that decoupling promotes better OO design, and can help make classes easier to unit test. 
+
+While this library wasn't designed with "conventional" events in mind, it *is* possible to handle them - just. If you do still want to continue down this route, read on...
+
+### Server-Side
+You'll need a shim that handles an event raised in your business logic class and forwards it on to SignalR for broadcasting to clients. For example:-
+
+```C#
+internal class EventShim : IServerEventShim
+{
+    private MyBusinessLogic _myBusinessLogic;
+
+    public Action<ISignalREvent> BroadcastAction { get; set; }
+
+    public EventShim(MyBusinessLogic myBusinessLogic)
+    {
+        _myBusinessLogic = myBusinessLogic;
+        _myBusinessLogic.SomeEvent += (sender, args) =>
+                if (BroadcastAction != null)
+                    BroadcastAction(args);
+    }
+}
+```
+
+You'll probably want to create a separate shim class for each event (or at least each class that raises events). Go ahead and register the shim(s) as described earlier - remember when I mentioned that you can register more than one shim?
+
+As you are using conventional events, your event classes should inherit from EventArgs but must still implement *ISignalREvent*.
+
+### Client-Side
+On the client-side, the shim needs to take the event that has arrived via SignalR, and raise a "conventional" event, something like this:-
+
+```C#
+internal class EventShim : IClientEventShim
+{
+    public event EventHandler<ExchangeRateChangedEventArgs> ExchangeRateChanged;
+
+    internal class EventShim : IClientEventShim
+    {
+        public event EventHandler<ExchangeRateChangedEventArgs> ExchangeRateChanged;
+
+        public void Publish<TEvent>(TEvent @event) where TEvent : ISignalREvent
+        {
+            if (typeof(TEvent) == typeof(ExchangeRateChangedEventArgs) && ExchangeRateChanged != null)
+            {
+                ExchangeRateChanged(this, @event as ExchangeRateChangedEventArgs);
+            }
+            if (typeof(TEvent) == ....
+        }
+    }
+}
+```
+
+The problem here is that the Publish() event is generic so you'll have to examine the type and raise the appropriate event. Additionally there can only be one client-side shim so this could get messy if you need to support a number of events. You'll also need to find a way to pass this event shim instance around where it's required, for consumers to set up their event handlers. Are you sure you don't want to look into event aggregators?!

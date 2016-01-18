@@ -1,5 +1,7 @@
 ﻿namespace SignalR.PubSub.Client.Net
 {
+    using SignalR.PubSub.Common;
+
     /// <summary>
     /// Client-side shim that sits between SignalR and the client applications own event mechanism
     /// (an event aggregator library, for example).
@@ -12,6 +14,6 @@
         /// </summary>
         /// <typeparam name="TEvent">The type of the event.</typeparam>
         /// <param name="event">The event.</param>
-        void Publish<TEvent>(TEvent @event);
+        void Publish<TEvent>(TEvent @event) where TEvent : ISignalREvent;
     }
 }
