@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>Signalr PubSub Server</title>
+    <authors>Andrew Stephens</authors>
+    <owners>Andrew Stephens</owners>
+    <projectUrl>https://github.com/andyste1/SignalR.PubSub</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A simple SignalR-based event aggregator that allows clients to subscribe to server events</description>
+    <releaseNotes>Beta version 0.1.</releaseNotes>
+    <copyright>Copyright 2016</copyright>
+    <tags>SignalR PubSub Events</tags>
+  </metadata>
+</package>

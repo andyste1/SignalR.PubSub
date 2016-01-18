@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalR.PubSub.Common", "SignalR.PubSub.Common\SignalR.PubSub.Common.csproj", "{F88C77E1-7DB0-42D6-AD98-CD4ACCABF67D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalR.PubSub.Client.Net", "SignalR.PubSub.Client.Net\SignalR.PubSub.Client.Net.csproj", "{AAC2881B-0E07-4C43-ADE1-98B5D0C4C603}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalR.PubSub.Server", "SignalR.PubSub.Server\SignalR.PubSub.Server.csproj", "{F1BC5969-B86C-4A4E-8524-14D404CC91D7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4986C377-62B9-40C0-9D70-35618C84A0CA}"
+	ProjectSection(SolutionItems) = preProject
+		VersionInfo.cs = VersionInfo.cs
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F88C77E1-7DB0-42D6-AD98-CD4ACCABF67D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F88C77E1-7DB0-42D6-AD98-CD4ACCABF67D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F88C77E1-7DB0-42D6-AD98-CD4ACCABF67D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F88C77E1-7DB0-42D6-AD98-CD4ACCABF67D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAC2881B-0E07-4C43-ADE1-98B5D0C4C603}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAC2881B-0E07-4C43-ADE1-98B5D0C4C603}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAC2881B-0E07-4C43-ADE1-98B5D0C4C603}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAC2881B-0E07-4C43-ADE1-98B5D0C4C603}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1BC5969-B86C-4A4E-8524-14D404CC91D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1BC5969-B86C-4A4E-8524-14D404CC91D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1BC5969-B86C-4A4E-8524-14D404CC91D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1BC5969-B86C-4A4E-8524-14D404CC91D7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
