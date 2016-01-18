@@ -132,3 +132,6 @@ hubProxy.on('PubSubBusEvent', function (message) {
 ```
 
 Make sure you use the correct Hub name ("_PubSubHub") and Hub event name ("PubSubBusEvent") as shown above.
+=======
+A simple SignalR-based event aggregator that allows clients to subscribe to server events
+
