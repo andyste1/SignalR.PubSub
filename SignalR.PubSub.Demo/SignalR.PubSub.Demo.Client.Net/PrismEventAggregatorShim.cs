@@ -1,12 +1,8 @@
 ﻿namespace SignalR.PubSub.Demo.Client.Net
 {
-    using System;
-
     using Microsoft.Practices.Prism.PubSubEvents;
 
     using SignalR.PubSub.Client.Net;
-    using SignalR.PubSub.Common;
-    using SignalR.PubSub.Demo.Common;
 
     /// <summary>
     /// Example shim that forwards events arriving from the server on to the Prism Event Aggregator.
